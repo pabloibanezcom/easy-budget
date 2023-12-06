@@ -1,0 +1,5 @@
+.userBox {
+  background-color: var(--color-primary-dark);
+  color: var(--color-font-primary);
+  padding: 6px;
+}

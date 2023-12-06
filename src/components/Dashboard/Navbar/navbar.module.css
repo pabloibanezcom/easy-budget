@@ -1,0 +1,5 @@
+.navbar {
+  display: flex;
+  background-color: var(--color-primary);
+  color: var(--color-font-primary);
+}

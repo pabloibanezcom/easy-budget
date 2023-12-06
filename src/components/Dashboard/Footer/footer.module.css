@@ -1,0 +1,5 @@
+.footer {
+  padding: 1px 16px;
+  background: var(--color-white);
+  position: relative;
+}

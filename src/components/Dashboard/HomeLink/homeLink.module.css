@@ -1,0 +1,11 @@
+.homeLink {
+  min-height: var(--layout-header-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-font-primary);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+}

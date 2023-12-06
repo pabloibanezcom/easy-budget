@@ -1,0 +1,17 @@
+.pageTopBar {
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+
+  h6 {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-top: 0.35em;
+  }
+}
