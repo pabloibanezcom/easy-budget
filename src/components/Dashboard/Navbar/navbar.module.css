@@ -1,5 +1,5 @@
 .navbar {
   display: flex;
-  background-color: var(--color-primary);
-  color: var(--color-font-primary);
+  background-color: var(--color-sidebar-background);
+  color: var(--color-sidebar-font);
 }

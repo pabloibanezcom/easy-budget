@@ -3,9 +3,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-primary);
-  color: var(--color-font-primary);
-  font-weight: 600;
-  font-size: 16px;
-  text-transform: uppercase;
+  background-color: var(--color-sidebar-background);
+  color: var(--color-sidebar-font);
+
+  span {
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 20px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    transition-delay: 0.2s;
+  }
+}
+
+.homeLink--collapsed {
+  span {
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
+    margin-left: 0;
+  }
 }

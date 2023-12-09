@@ -1,19 +1,23 @@
 :root {
   /* Colors */
-  --color-primary: #233044;
-  --color-primary-dark: #1e2a38;
-  --color-secondary: #4782da;
+  --color-primary: #376fd0;
+  --color-secondary: #3dada1;
   --color-white: #ffffff;
   --color-black: #000000;
   --color-grey-background: #f7f9fc;
+  --color-grey-border: #e4e9f2;
+
+  --color-sidebar-background: #233044;
+  --color-sidebar-font: #eeeeee;
 
   --color-font-primary: #eeeeee;
   --color-font-black: #000000;
 
   /* Layout */
-  --layout-aside-width: 260px;
+  --layout-sidebar-width: 260px;
+  --layout-sidebar-collapsed-width: 80px;
   --layout-header-height: 64px;
-  --layout-footer-height: 60px;
+  --layout-footer-height: 48px;
   --layout-main-padding: 48px;
 }
 

@@ -1,5 +1,5 @@
-.userBox {
+.collapseButton {
   background-color: var(--color-primary-dark);
   color: var(--color-font-primary);
-  padding: 6px;
+  border-radius: 0 !important;
 }

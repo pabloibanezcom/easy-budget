@@ -4,18 +4,34 @@
 }
 
 .sidebar {
-  width: var(--layout-aside-width);
+  width: var(--layout-sidebar-width);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  transition: width 0.2s ease-in-out;
 
   nav {
     flex-grow: 1;
   }
 
-  div[class^='userBox'],
-  div[class*=' userBox'] {
+  button[class^='collapseButton'],
+  button[class*=' collapseButton'] {
     height: var(--layout-footer-height);
+
+    svg {
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+}
+
+.sidebar--collapsed {
+  width: var(--layout-sidebar-collapsed-width);
+
+  button[class^='collapseButton'],
+  button[class*=' collapseButton'] {
+    svg {
+      transform: rotate(180deg);
+    }
   }
 }
 
