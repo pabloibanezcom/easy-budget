@@ -1,6 +1,6 @@
 import { Equalizer } from '@mui/icons-material';
 import classNames from 'classnames';
-import styles from './homeLink.module.css';
+import styles from './homeLink.module.scss';
 
 type HomeLinkProps = {
   collapsed?: boolean;

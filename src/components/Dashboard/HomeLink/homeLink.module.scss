@@ -1,15 +1,16 @@
+@import '../../../styles/mixins';
+
 .homeLink {
   min-height: var(--layout-header-height);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-sidebar-background);
-  color: var(--color-sidebar-font);
+  @include bgColorStyle(sidebar);
 
   span {
+    @include font(20px, 600);
+
     margin-left: 8px;
-    font-weight: 600;
-    font-size: 20px;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     transition-delay: 0.2s;

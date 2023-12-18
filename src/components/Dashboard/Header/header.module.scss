@@ -1,0 +1,19 @@
+@import '../../../styles/mixins';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  @include bgColorStyle(header);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.leftSide {
+  display: flex;
+  flex-grow: 1;
+}
+
+.rightSide {
+}

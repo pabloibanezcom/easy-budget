@@ -1,5 +1,23 @@
-import styles from './header.module.css';
+import ContrastIcon from '@mui/icons-material/Contrast';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import styles from './header.module.scss';
 
-export const Header = () => {
-  return <header className={styles.header}>Header</header>;
+type HeaderProps = {
+  onToggleTheme: () => void;
+};
+
+export const Header = ({ onToggleTheme }: HeaderProps) => {
+  return (
+    <header className={styles.header}>
+      <div className={styles.leftSide}></div>
+      <div className={styles.rightSide}>
+        <Tooltip title="Change theme">
+          <IconButton aria-label="change theme" onClick={onToggleTheme}>
+            <ContrastIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
+    </header>
+  );
 };

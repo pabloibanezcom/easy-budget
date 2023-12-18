@@ -1,6 +1,6 @@
 import { ChevronLeft } from '@mui/icons-material';
 import Button from '@mui/material/Button';
-import styles from './collapseButton.module.css';
+import styles from './collapseButton.module.scss';
 
 type CollapseButtonProps = {
   onClick: () => void;

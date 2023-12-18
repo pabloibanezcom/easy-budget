@@ -1,4 +1,4 @@
-import styles from './pageTopBar.module.css';
+import styles from './pageTopBar.module.scss';
 
 type PageTopBarProps = {
   title: string;

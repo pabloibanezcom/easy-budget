@@ -1,0 +1,13 @@
+@import '../variables.module.scss';
+
+@mixin theme($themeName) {
+  $theme: null !default;
+  @if $themeName == 'light' {
+    $theme: $theme-light;
+  } @else if $themeName == 'dark' {
+    $theme: $theme-dark;
+  }
+  @each $key, $value in $theme {
+    --#{$key}: #{$value};
+  }
+}

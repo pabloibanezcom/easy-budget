@@ -1,0 +1,15 @@
+@import '../../../styles/mixins';
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  @include bgColorStyle(sidebar);
+}
+
+.navbarSectionTitle {
+  @include font(12px, 500);
+
+  padding: 16px 28px 4px;
+  opacity: 0.4;
+  text-transform: uppercase;
+}

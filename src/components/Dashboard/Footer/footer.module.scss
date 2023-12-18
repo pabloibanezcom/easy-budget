@@ -1,0 +1,7 @@
+@import '../../../styles/mixins';
+
+.footer {
+  padding: 1px 16px;
+  @include bgColorStyle(footer);
+  position: relative;
+}

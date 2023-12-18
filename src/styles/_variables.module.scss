@@ -1,0 +1,70 @@
+// COLORS
+$color-primary: #376fd0;
+$color-secondary: #3a9d93;
+
+$color-white: #ffffff;
+$color-white-font: #eeeeee;
+
+$color-black: #000000;
+$color-black-font: #000000;
+
+$color-darkblue-1: #1b2635;
+$color-darkblue-2: #233044;
+
+$color-grey-background: #f7f9fc;
+$color-grey-border: #e4e9f2;
+$color-grey-font: #9e9e9e;
+
+// SIZES
+$layout-sidebar-width: 260px;
+$layout-sidebar-collapsed-width: 80px;
+$layout-header-height: 64px;
+$layout-footer-height: 48px;
+$layout-main-padding: 48px;
+
+// Base theme
+$theme-base: (
+  //colors
+  'color-primary': $color-primary,
+  'color-secondary': $color-secondary,
+  'color-white': $color-white,
+  'color-black': $color-black,
+  'primary-bg-color': $color-primary,
+  'primary-color': $color-white-font,
+  'secondary-bg-color': $color-secondary,
+  'secondary-color': $color-white-font,
+  'sidebar-bg-color': $color-darkblue-2,
+  'sidebar-color': $color-white-font,
+  //sizes
+  'layout-sidebar-width': $layout-sidebar-width,
+  'layout-sidebar-collapsed-width': $layout-sidebar-collapsed-width,
+  'layout-header-height': $layout-header-height,
+  'layout-footer-height': $layout-footer-height,
+  'layout-main-padding': $layout-main-padding
+);
+
+// // Light theme
+$theme-light: map-merge(
+  $theme-base,
+  (
+    'main-bg-color': $color-grey-background,
+    'main-color': $color-black-font,
+    'header-bg-color': $color-white,
+    'header-color': $color-grey-font,
+    'footer-bg-color': $color-white,
+    'footer-color': $color-grey-font
+  )
+);
+
+// Dark theme
+$theme-dark: map-merge(
+  $theme-base,
+  (
+    'main-bg-color': $color-darkblue-1,
+    'main-color': $color-white-font,
+    'header-bg-color': $color-darkblue-1,
+    'header-color': $color-white-font,
+    'footer-bg-color': $color-darkblue-2,
+    'footer-color': $color-white-font
+  )
+);

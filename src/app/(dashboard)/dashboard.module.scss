@@ -1,6 +1,16 @@
+@import '../../styles/mixins';
+
 .dashboardLayout {
   display: flex;
   min-height: 100vh;
+}
+
+.theme-light {
+  @include theme('light');
+}
+
+.theme-dark {
+  @include theme('dark');
 }
 
 .sidebar {
@@ -22,15 +32,15 @@
       transition: transform 0.2s ease-in-out;
     }
   }
-}
 
-.sidebar--collapsed {
-  width: var(--layout-sidebar-collapsed-width);
+  &.sidebar--collapsed {
+    width: var(--layout-sidebar-collapsed-width);
 
-  button[class^='collapseButton'],
-  button[class*=' collapseButton'] {
-    svg {
-      transform: rotate(180deg);
+    button[class^='collapseButton'],
+    button[class*=' collapseButton'] {
+      svg {
+        transform: rotate(180deg);
+      }
     }
   }
 }
@@ -58,6 +68,5 @@
 .main {
   flex: 1 1 0%;
   padding: var(--layout-main-padding);
-  background: var(--color-grey-background);
-  color: var(--color-font-black);
+  @include bgColorStyle(main);
 }

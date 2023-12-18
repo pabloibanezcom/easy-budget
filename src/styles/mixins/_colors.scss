@@ -1,0 +1,8 @@
+@mixin backgroundColor($background, $color) {
+  background: $background;
+  color: $color;
+}
+
+@mixin bgColorStyle($style) {
+  @include backgroundColor(var(--#{$style}-bg-color), var(--#{$style}-color));
+}
