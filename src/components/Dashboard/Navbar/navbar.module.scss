@@ -1,9 +1,19 @@
 @import '../../../styles/mixins';
+@import '../../../styles/variables.module';
 
 .navbar {
   display: flex;
   flex-direction: column;
   @include bgColorStyle(sidebar);
+
+  h6 {
+    padding-left: 16px;
+  }
+
+  svg {
+    font-size: 16px;
+    color: $color-grey-font;
+  }
 }
 
 .navbarSectionTitle {
@@ -12,4 +22,23 @@
   padding: 16px 28px 4px;
   opacity: 0.4;
   text-transform: uppercase;
+}
+
+.navbarElement {
+  span {
+    @include font(13px, 400);
+  }
+}
+
+.navbarChildElement {
+  padding-left: 56px !important;
+  color: $color-grey-font !important;
+}
+
+.navbarExpandIcon {
+  transition: transform 0.3s ease-in-out !important;
+
+  &.navbarExpandIcon--expanded {
+    transform: rotate(180deg);
+  }
 }

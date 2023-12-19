@@ -15,11 +15,11 @@ export const navbarElements: NavbarSection[] = [
     elements: [
       {
         title: 'Expenses',
-        icon: 'Expenses'
+        icon: 'EuroSymbol'
       },
       {
         title: 'Banking',
-        icon: 'Bank',
+        icon: 'AccountBalance',
         elements: [
           {
             title: 'Accounts',
@@ -42,7 +42,7 @@ export const navbarElements: NavbarSection[] = [
     elements: [
       {
         title: 'Investments',
-        icon: 'Investment',
+        icon: 'AccountBalanceWallet',
         elements: [
           {
             title: 'Stocks',

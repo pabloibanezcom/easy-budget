@@ -1,5 +1,5 @@
 export type NavbarElement = {
-  title: string;
+  title?: string;
   icon?: string;
   path?: string;
   elements?: NavbarElement[];
