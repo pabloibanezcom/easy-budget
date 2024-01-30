@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#376fd0'
+      main: '#234b8f'
     },
     secondary: {
       main: '#3a9d93'

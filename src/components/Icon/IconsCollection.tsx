@@ -1,4 +1,14 @@
-import { AccountBalance, AccountBalanceWallet, EuroSymbol, ExpandMore, Home } from '@mui/icons-material';
+import {
+  AccountBalance,
+  AccountBalanceWallet,
+  CreditCard,
+  CurrencyBitcoin,
+  EuroSymbol,
+  ExpandMore,
+  Home,
+  Savings,
+  ShowChart
+} from '@mui/icons-material';
 
 export const getIcon = (iconName: string) => {
   switch (iconName) {
@@ -12,6 +22,14 @@ export const getIcon = (iconName: string) => {
       return AccountBalanceWallet;
     case 'ExpandMore':
       return ExpandMore;
+    case 'CreditCard':
+      return CreditCard;
+    case 'Savings':
+      return Savings;
+    case 'ShowChart':
+      return ShowChart;
+    case 'CurrencyBitcoin':
+      return CurrencyBitcoin;
     default:
       return null;
   }

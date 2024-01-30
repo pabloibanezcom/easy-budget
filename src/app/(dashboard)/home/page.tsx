@@ -1,11 +1,11 @@
-import { PageTopBar } from '@/components/PageTopBar/PageTopBar';
+import { PageTopBar, PageTopBarProps } from '@/components/PageTopBar/PageTopBar';
+
+const pageInfo: PageTopBarProps = {
+  title: 'Analytics Dashboard',
+  subtitle: 'Welcome back, Pablo! We have missed you.'
+};
 
 export default async function Home() {
-  const pageInfo = {
-    title: 'Analytics Dashboard',
-    subtitle: 'Welcome back, Pablo! We have missed you.'
-  };
-
   return (
     <div>
       <PageTopBar title={pageInfo.title} subtitle={pageInfo.subtitle} />

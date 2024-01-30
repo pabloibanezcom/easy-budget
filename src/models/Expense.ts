@@ -1,25 +1,53 @@
+import { Expense } from '@/interfaces';
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-export interface Expenses extends mongoose.Document {
-  name: string;
-  date: Date;
-}
+interface ExpenseDoc extends mongoose.Document, Expense {}
 
-/* PetSchema will correspond to a collection in your MongoDB database. */
-const ExpenseSchema = new mongoose.Schema<Expenses>({
-  name: {
-    /* The name of this pet */
-
+const ExpenseSchema = new mongoose.Schema<ExpenseDoc>({
+  description: {
     type: String,
-    required: [true, 'Please provide a name for this pet.'],
-    maxlength: [60, 'Name cannot be more than 60 characters']
+    required: true
+  },
+  issuer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company',
+    required: true
   },
   date: {
-    /* The owner of this pet */
-
     type: Date,
-    required: [true, "Please provide the pet owner's name"]
+    required: [true, 'Please provide the date']
+  },
+  bankAccount: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'BankAccount',
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  currency: {
+    type: String,
+    required: true,
+    enum: ['EUR', 'GBP', 'USD']
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true
+  },
+  tags: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tag'
+    }
+  ],
+  comments: {
+    type: String
   }
 });
 
-export default mongoose.models.Expense || mongoose.model<Expenses>('Expense', ExpenseSchema);
+ExpenseSchema.plugin(mongoosePaginate);
+
+export default mongoose.model<ExpenseDoc, mongoose.PaginateModel<ExpenseDoc>>('Expenses', ExpenseSchema, 'expenses');

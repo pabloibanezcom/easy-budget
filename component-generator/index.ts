@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const inquirer = require('inquirer');
+const enquirer = require('enquirer');
 
 const COMPONENTS_PATH = path.join(__dirname, '../src/components');
 
@@ -74,41 +74,81 @@ const replaceStringsInFiles = async (
 };
 
 const generateComponent = async () => {
+  const answer = await enquirer.prompt([
+    {
+      type: 'input',
+      name: 'fileName',
+      message: 'Component file name (must be in Pascal Case):'
+    }
+  ]);
+
+  const componentName = {
+    name: answer.fileName,
+    pascalCase: answer.fileName,
+    camelCase: answer.fileName.charAt(0).toLowerCase() + answer.fileName.slice(1)
+  };
+
+  console.log(`Generating component ${componentName.name}...`);
+
+  copyAllFiles(path.join(__dirname, 'templates/component'), path.join(__dirname, 'temp'));
+
+  renameFile(path.join(__dirname, 'temp'), 'Component.tsx', `${componentName.pascalCase}.tsx`);
+  renameFile(path.join(__dirname, 'temp'), 'component.module.scss', `${componentName.camelCase}.module.scss`);
+
+  await replaceStringsInFiles(path.join(__dirname, 'temp'), [
+    { oldString: 'Component', newString: componentName.pascalCase },
+    { oldString: 'component', newString: componentName.camelCase }
+  ]);
+
+  copyAllFiles(path.join(__dirname, 'temp'), path.join(COMPONENTS_PATH, componentName.pascalCase));
+  await removeFilesAndPath(path.join(__dirname, 'temp'));
+
+  console.log(`Component ${componentName.name} generated.`);
+};
+
+const generateModel = async () => {
+  const answer = await enquirer.prompt([
+    {
+      type: 'input',
+      name: 'modelName',
+      message: 'Model name (must be in Pascal Case):'
+    }
+  ]);
+
+  const modelName = {
+    name: answer.fileName,
+    pascalCase: answer.fileName,
+    camelCase: answer.fileName.charAt(0).toLowerCase() + answer.fileName.slice(1)
+  };
+
+  console.log(`Generating model ${modelName.name}...`);
+
+  copyAllFiles(path.join(__dirname, 'templates/model'), path.join(__dirname, 'temp'));
+};
+
+const generate = async () => {
   try {
-    const answer = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'fileName',
-        message: 'Component file name (must be in Pascal Case):'
-      }
-    ]);
-
-    const componentName = {
-      name: answer.fileName,
-      pascalCase: answer.fileName,
-      camelCase: answer.fileName.charAt(0).toLowerCase() + answer.fileName.slice(1)
-    };
-
-    console.log(`Generating component ${componentName.name}...`);
-
-    copyAllFiles(path.join(__dirname, 'templates'), path.join(__dirname, 'temp'));
-
-    renameFile(path.join(__dirname, 'temp'), 'Component.tsx', `${componentName.pascalCase}.tsx`);
-    renameFile(path.join(__dirname, 'temp'), 'component.module.css', `${componentName.camelCase}.module.css`);
-
-    await replaceStringsInFiles(path.join(__dirname, 'temp'), [
-      { oldString: 'Component', newString: componentName.pascalCase },
-      { oldString: 'component', newString: componentName.camelCase }
-    ]);
-
-    copyAllFiles(path.join(__dirname, 'temp'), path.join(COMPONENTS_PATH, componentName.pascalCase));
-    await removeFilesAndPath(path.join(__dirname, 'temp'));
-
-    console.log(`Component ${componentName.name} generated.`);
+    // const answer = await enquirer.prompt([
+    //   {
+    //     type: 'select',
+    //     name: 'type',
+    //     message: 'What do you want to create?',
+    //     choices: ['component', 'model']
+    //   }
+    // ]);
+    const answer = { type: 'component' };
+    switch (answer.type) {
+      case 'component':
+        await generateComponent();
+        break;
+      case 'model':
+        await generateModel();
+        break;
+    }
   } catch (error) {
     console.error(error);
     await removeFilesAndPath(path.join(__dirname, 'temp'));
   }
 };
 
-generateComponent();
+generate();

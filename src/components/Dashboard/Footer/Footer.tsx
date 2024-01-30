@@ -1,5 +1,11 @@
 import styles from './footer.module.scss';
 
 export const Footer = () => {
-  return <footer className={styles.footer}>Footer</footer>;
+  const currentYear = new Date().getFullYear();
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.leftSide} />
+      <div className={styles.rightSide}>@ {currentYear} - Pablo Ibanez</div>
+    </footer>
+  );
 };

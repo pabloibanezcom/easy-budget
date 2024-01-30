@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import styles from './component.module.css';
+import styles from './component.module.scss';
 
 type ComponentProps = {
   className?: string;

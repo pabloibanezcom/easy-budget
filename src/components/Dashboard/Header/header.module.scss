@@ -1,4 +1,5 @@
 @import '../../../styles/mixins';
+@import '../../../styles/variables.module';
 
 .header {
   display: flex;
@@ -6,8 +7,7 @@
   align-items: center;
   box-sizing: border-box;
   @include bgColorStyle(header);
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: $layout-header-footer-padding;
 }
 
 .leftSide {
@@ -16,4 +16,7 @@
 }
 
 .rightSide {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
 }

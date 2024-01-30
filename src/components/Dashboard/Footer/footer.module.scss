@@ -1,7 +1,21 @@
 @import '../../../styles/mixins';
+@import '../../../styles/variables.module';
 
 .footer {
-  padding: 1px 16px;
   @include bgColorStyle(footer);
+  padding: $layout-header-footer-padding;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include font(13px, 400);
+  color: $color-grey-font;
+}
+
+.leftSide {
+  display: flex;
+  flex-grow: 1;
+}
+
+.rightSide {
 }

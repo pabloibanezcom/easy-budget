@@ -1,6 +1,6 @@
 import styles from './pageTopBar.module.scss';
 
-type PageTopBarProps = {
+export type PageTopBarProps = {
   title: string;
   subtitle?: string;
 };

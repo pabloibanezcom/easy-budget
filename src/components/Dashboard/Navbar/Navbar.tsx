@@ -1,62 +1,62 @@
 import { Icon } from '@/components/Icon';
-import Collapse from '@mui/material/Collapse';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import classNames from 'classnames';
-import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NavbarElement } from './Navbar.types';
-import { navbarElements } from './NavbarElements';
+import { navbarSections } from './NavbarSections';
 import styles from './navbar.module.scss';
 
-const NavElement = ({ element }: { element: NavbarElement }) => {
-  const [open, setOpen] = useState(false);
+type NavbarProps = {
+  collapsed: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+};
 
+const NavElement = ({ element, currentPath }: { element: NavbarElement; currentPath: string }) => {
   return (
-    <div className={styles.navbarElement}>
-      <MenuItem onClick={() => setOpen(!open)}>
-        {element.icon && (
-          <ListItemIcon>
-            <Icon iconName={element.icon} />
-          </ListItemIcon>
-        )}
-        <ListItemText>{element.title}</ListItemText>
-        {element.elements && (
-          <Icon
-            iconName="ExpandMore"
-            className={classNames(styles.navbarExpandIcon, open ? styles['navbarExpandIcon--expanded'] : null)}
-          />
-        )}
-      </MenuItem>
-
-      {element.elements && (
-        <Collapse in={open}>
-          <MenuList>
-            {element.elements.map((childElement, index) => (
-              <MenuItem key={index} className={styles.navbarChildElement}>
-                <ListItemText>{childElement.title}</ListItemText>
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Collapse>
+    <MenuItem className={classNames(styles.navbarElement, currentPath === element.path && styles.activeElement)}>
+      {element.path && (
+        <Link href={element.path}>
+          {element.icon && (
+            <ListItemIcon>
+              <Icon iconName={element.icon} className={styles.elementIcon} />
+            </ListItemIcon>
+          )}
+          <ListItemText>{element.title}</ListItemText>
+        </Link>
       )}
-    </div>
+    </MenuItem>
   );
 };
 
-export const Navbar = () => {
+export const Navbar = ({ collapsed, onMouseEnter, onMouseLeave }: NavbarProps) => {
+  const currentPath = usePathname();
+
   return (
-    <nav className={styles.navbar}>
-      {navbarElements.map((section, index) => {
+    <nav
+      className={classNames(styles.navbar, collapsed && styles['navbar--collapsed'])}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {navbarSections.map((section, index) => {
         return (
           <div key={index}>
-            <h6 className={styles.navbarSectionTitle}>{section.title}</h6>
+            {section.title && (
+              <div className={styles.setionTitleWrapper}>
+                <div className={styles.setionTitleCollapsedBar}>
+                  <hr />
+                </div>
+                <h6 className={styles.navbarSectionTitle}>{section.title}</h6>
+              </div>
+            )}
             <MenuList>
-              {section.elements.map((element, index) => {
-                return <NavElement element={element} key={index} />;
-              })}
+              {section.elements.map((element, idx) => (
+                <NavElement element={element} key={idx} currentPath={currentPath} />
+              ))}
             </MenuList>
           </div>
         );
