@@ -1,9 +1,18 @@
-import { Company } from '@/interfaces';
-import mongoose from 'mongoose';
+import { ICategory } from '@/models';
+import { Document, model, models, Schema } from 'mongoose';
 
-interface CompanyDoc extends mongoose.Document, Company {}
+export interface ICompanyBase {
+  name: string;
+  bankConceptName?: string;
+  defaultCategory?: ICategory;
+}
 
-const CompanySchema = new mongoose.Schema<CompanyDoc>({
+export interface ICompany extends Document, ICompanyBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const CompanySchema = new Schema<ICompany>({
   name: {
     type: String,
     required: true
@@ -12,9 +21,9 @@ const CompanySchema = new mongoose.Schema<CompanyDoc>({
     type: String
   },
   defaultCategory: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Category'
   }
 });
 
-export default mongoose.models.Company || mongoose.model<CompanyDoc>('Company', CompanySchema);
+export const Company = models.Company || model<ICompany>('Company', CompanySchema);

@@ -1,4 +1,4 @@
-import { BankAccount } from '@/interfaces';
+import { IBankAccount } from '@/models';
 import * as XLSX from 'xlsx';
 import { getConfiguration } from './config';
 import { XlsxConfig } from './model/xlsxConfig';
@@ -47,7 +47,7 @@ const sheetToJSON = (config: XlsxConfig, sheet: any) => {
     });
 };
 
-export const parseXLSX = async (bankAccount: BankAccount, file: any) => {
+export const parseXLSX = async (bankAccount: IBankAccount, file: any) => {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
   const fileContent = XLSX.read(buffer, { type: 'buffer' });

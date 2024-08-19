@@ -1,11 +1,25 @@
-import { BankAccount } from '@/interfaces';
-import mongoose from 'mongoose';
+import { Currency } from '@/enums';
+import { IBank } from '@/models';
+import { Document, Schema, model, models } from 'mongoose';
 
-interface BankAccountDoc extends mongoose.Document, BankAccount {}
+export interface IBankAccountBase {
+  bank: IBank;
+  iban?: string;
+  sortCode?: string;
+  accountNumber?: string;
+  alias: string;
+  currency: Currency;
+  balance: number;
+}
 
-const BankAccountSchema = new mongoose.Schema<BankAccountDoc>({
+export interface IBankAccount extends Document, IBankAccountBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const BankAccountSchema = new Schema<IBankAccount>({
   bank: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Bank',
     required: true
   },
@@ -30,11 +44,7 @@ const BankAccountSchema = new mongoose.Schema<BankAccountDoc>({
   balance: {
     type: Number,
     required: true
-  },
-  lastUpdated: {
-    type: Date,
-    required: true
   }
 });
 
-export default mongoose.models.BankAccount || mongoose.model<BankAccountDoc>('BankAccount', BankAccountSchema);
+export const BankAccount = models.Category || model<IBankAccount>('BankAccount', BankAccountSchema);

@@ -1,8 +1,7 @@
-import { Expense } from '@/interfaces';
-import { BankAccount as BankAccountDB, Company, Expenses } from '@/models';
+import { BankAccount as BankAccountDB, Company, Expense, IExpenseBase } from '@/models';
 import { parseXLSX } from './xlsx/xlsxParse';
 
-const transformElementIntoExpense = async (bankAccount: any, element: any): Promise<Expense> => {
+const transformElementIntoExpense = async (bankAccount: any, element: any): Promise<IExpenseBase> => {
   let company = await Company.findOne({ bankConceptName: element.concepto || element.description });
   if (!company) {
     company = await Company.findOne({ name: 'Desconocido' });
@@ -34,7 +33,7 @@ export const generateExpenseFromFile = async (bankAccountID: string, file: any) 
       })
   );
   for (const expense of await expenses) {
-    const newExpense = new Expenses(expense);
+    const newExpense = new Expense(expense);
     await newExpense.save();
   }
   return expenses;

@@ -1,9 +1,16 @@
-import { Tag } from '@/interfaces';
-import mongoose from 'mongoose';
+import { Document, Schema, model, models } from 'mongoose';
 
-interface TagDoc extends mongoose.Document, Tag {}
+export interface ITagBase {
+  name: string;
+  color: string;
+}
 
-const TagSchema = new mongoose.Schema<TagDoc>({
+export interface ITag extends Document, ITagBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const TagSchema = new Schema<ITag>({
   name: {
     type: String,
     required: true
@@ -14,4 +21,4 @@ const TagSchema = new mongoose.Schema<TagDoc>({
   }
 });
 
-export default mongoose.models.Tag || mongoose.model<TagDoc>('Tag', TagSchema);
+export const Tag = models.Tag || model<ITag>('Tag', TagSchema);

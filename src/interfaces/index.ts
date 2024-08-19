@@ -1,9 +1,0 @@
-export type { Bank } from './Bank';
-export type { BankAccount } from './BankAccount';
-export type { Category } from './Category';
-export type { Company } from './Company';
-export type { CryptoAccount } from './CryptoAccount';
-export type { Expense } from './Expense';
-export type { FixedExpense } from './FixedExpense';
-export type { NationalInsurancePayment } from './NationalInsurancePayment';
-export type { Tag } from './Tag';

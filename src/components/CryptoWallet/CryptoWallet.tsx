@@ -1,11 +1,11 @@
-import { CryptoAccount } from '@/interfaces';
+import { ICryptoAccount } from '@/models';
 import classnames from 'classnames';
 import { Card } from '../Card';
 import styles from './cryptoWallet.module.scss';
 
 type CryptoWalletProps = {
   className?: string;
-  accounts: CryptoAccount[];
+  accounts: ICryptoAccount[];
 };
 
 export const CryptoWallet = ({ className, accounts }: CryptoWalletProps) => {

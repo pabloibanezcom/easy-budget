@@ -1,8 +1,7 @@
-import Bank from './Bank';
-import BankAccount from './BankAccount';
-import Company from './Company';
-import CryptoAccount from './CryptoAccount';
-import Expenses from './Expense';
-import FixedExpense from './FixedExpense';
-
-export { Bank, BankAccount, Company, CryptoAccount, Expenses, FixedExpense };
+export * from './Bank';
+export * from './BankAccount';
+export * from './Category';
+export * from './Company';
+export * from './CryptoAccount';
+export * from './Expense';
+export * from './Tag';

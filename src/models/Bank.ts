@@ -1,9 +1,16 @@
-import { Bank } from '@/interfaces';
-import mongoose from 'mongoose';
+import mongoose, { Document, model, models } from 'mongoose';
 
-interface BankDoc extends mongoose.Document, Bank {}
+export interface IBankBase {
+  name: string;
+  country: string;
+}
 
-const BankSchema = new mongoose.Schema<BankDoc>({
+export interface IBank extends Document, IBankBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const BankSchema = new mongoose.Schema<IBank>({
   name: {
     type: String,
     required: true
@@ -14,4 +21,4 @@ const BankSchema = new mongoose.Schema<BankDoc>({
   }
 });
 
-export default mongoose.models.Bank || mongoose.model<BankDoc>('Bank', BankSchema);
+export const Bank = models.Category || model<IBank>('Bank', BankSchema);

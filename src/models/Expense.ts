@@ -1,16 +1,33 @@
-import { Expense } from '@/interfaces';
-import mongoose from 'mongoose';
+import { Currency } from '@/enums';
+import { IBankAccount, ICategory, ICompany, ITag } from '@/models';
+import { Document, PaginateModel, Schema, model, models } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-interface ExpenseDoc extends mongoose.Document, Expense {}
+export interface IExpenseBase {
+  id?: any;
+  description: string;
+  issuer: ICompany;
+  date: Date;
+  bankAccount: IBankAccount;
+  amount: number;
+  currency: Currency;
+  category: ICategory;
+  tags?: ITag[];
+  comments?: string;
+}
 
-const ExpenseSchema = new mongoose.Schema<ExpenseDoc>({
+export interface IExpense extends IExpenseBase, Document {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const ExpenseSchema = new Schema<IExpense>({
   description: {
     type: String,
     required: true
   },
   issuer: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Company',
     required: true
   },
@@ -19,7 +36,7 @@ const ExpenseSchema = new mongoose.Schema<ExpenseDoc>({
     required: [true, 'Please provide the date']
   },
   bankAccount: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'BankAccount',
     required: true
   },
@@ -33,13 +50,13 @@ const ExpenseSchema = new mongoose.Schema<ExpenseDoc>({
     enum: ['EUR', 'GBP', 'USD']
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
   },
   tags: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Tag'
     }
   ],
@@ -50,4 +67,4 @@ const ExpenseSchema = new mongoose.Schema<ExpenseDoc>({
 
 ExpenseSchema.plugin(mongoosePaginate);
 
-export default mongoose.model<ExpenseDoc, mongoose.PaginateModel<ExpenseDoc>>('Expenses', ExpenseSchema, 'expenses');
+export const Expense = models.Expense || model<IExpense, PaginateModel<IExpense>>('Expense', ExpenseSchema);

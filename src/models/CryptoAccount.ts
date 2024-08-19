@@ -1,9 +1,16 @@
-import { CryptoAccount } from '@/interfaces';
-import mongoose from 'mongoose';
+import mongoose, { Document, model, models } from 'mongoose';
 
-interface CryptoAccountDoc extends mongoose.Document, CryptoAccount {}
+export interface ICryptoAccountBase {
+  currency: string;
+  balance: number;
+}
 
-const CryptoAccountSchema = new mongoose.Schema<CryptoAccountDoc>({
+export interface ICryptoAccount extends Document, ICryptoAccountBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const CryptoAccountSchema = new mongoose.Schema<ICryptoAccount>({
   currency: {
     type: String,
     required: true
@@ -14,4 +21,4 @@ const CryptoAccountSchema = new mongoose.Schema<CryptoAccountDoc>({
   }
 });
 
-export default mongoose.models.CryptoAccount || mongoose.model<CryptoAccountDoc>('CryptoAccount', CryptoAccountSchema);
+export const CryptoAccount = models.CryptoAccount || model<ICryptoAccount>('CryptoAccount', CryptoAccountSchema);

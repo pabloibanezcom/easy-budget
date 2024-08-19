@@ -1,9 +1,16 @@
-import { Category } from '@/interfaces';
-import mongoose from 'mongoose';
+import mongoose, { Document, model, models } from 'mongoose';
 
-interface CategoryDoc extends mongoose.Document, Category {}
+export interface ICategoryBase {
+  name: string;
+  color: string;
+}
 
-const CategorySchema = new mongoose.Schema<CategoryDoc>({
+export interface ICategory extends Document, ICategoryBase {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const CategorySchema = new mongoose.Schema<ICategory>({
   name: {
     type: String,
     required: true
@@ -14,4 +21,4 @@ const CategorySchema = new mongoose.Schema<CategoryDoc>({
   }
 });
 
-export default mongoose.models.Category || mongoose.model<CategoryDoc>('Category', CategorySchema);
+export const Category = models.Category || model<ICategory>('Category', CategorySchema);
