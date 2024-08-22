@@ -1,12 +1,12 @@
 import { Currency } from '@/enums';
-import { IBankAccount, ICategory, ICompany, ITag } from '@/models';
+import { IBankAccount, ICategory, ICompanyDoc, ITag } from '@/models';
 import { Document, PaginateModel, Schema, model, models } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 export interface IExpenseBase {
   id?: any;
   description: string;
-  issuer: ICompany;
+  issuer: ICompanyDoc;
   date: Date;
   bankAccount: IBankAccount;
   amount: number;
@@ -22,6 +22,7 @@ export interface IExpense extends IExpenseBase, Document {
 }
 
 const ExpenseSchema = new Schema<IExpense>({
+  __v: { type: Number, select: false },
   description: {
     type: String,
     required: true

@@ -1,52 +1,53 @@
 import { authRoute } from '@/app/api/base_routes';
 import { deletedResponse, notFoundResponse, objectResponse, updatedResponse } from '@/app/api/responses';
-import { Category } from '@/models';
+import { Company } from '@/models';
 
-const itemName = 'Category';
+const itemName = 'Company';
 
 interface IRequestParams {
   params: {
-    category_id: string;
+    company_id: string;
   };
 }
 
 export async function GET(request: Request, { params }: IRequestParams) {
   return await authRoute(async () => {
-    try {
-      const category = await Category.findById(params.category_id);
-      return objectResponse(category);
-    } catch (error) {
+    const company = await Company.findById(params.company_id);
+
+    if (!company) {
       return notFoundResponse(itemName);
     }
+
+    return objectResponse(company);
   });
 }
 
 export async function PUT(request: Request, { params }: IRequestParams) {
   return await authRoute(async () => {
-    const categoryData = await request.json();
+    const companyData = await request.json();
 
-    let category;
+    let company;
 
     try {
-      category = await Category.findByIdAndUpdate(params.category_id, categoryData, { new: true });
+      company = await Company.findByIdAndUpdate(params.company_id, companyData, { new: true });
     } catch (error) {
       return notFoundResponse(itemName);
     }
 
-    return updatedResponse(itemName, category);
+    return updatedResponse(itemName, company);
   });
 }
 
 export async function DELETE(request: Request, { params }: IRequestParams) {
   return await authRoute(async () => {
-    let category;
+    let company;
 
     try {
-      category = await Category.findByIdAndDelete(params.category_id);
+      company = await Company.findByIdAndDelete(params.company_id);
     } catch (error) {
       return notFoundResponse(itemName);
     }
 
-    return deletedResponse(itemName, category);
+    return deletedResponse(itemName, company);
   });
 }

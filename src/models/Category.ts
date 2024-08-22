@@ -20,6 +20,7 @@ export interface ICategoryDocument extends ICategory, ICategoryMethods {}
 interface ICategoryModel extends ICategoryStatics, Model<ICategoryDocument> {}
 
 const CategorySchema = new Schema<ICategory>({
+  __v: { type: Number, select: false },
   name: {
     type: String,
     required: true

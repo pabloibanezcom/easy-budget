@@ -20,6 +20,7 @@ export interface ITagDocument extends ITag, ITagMethods {}
 interface ITagModel extends ITagStatics, Model<ITagDocument> {}
 
 const TagSchema = new Schema<ITag>({
+  __v: { type: Number, select: false },
   name: {
     type: String,
     required: true

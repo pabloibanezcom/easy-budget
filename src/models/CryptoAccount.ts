@@ -11,6 +11,7 @@ export interface ICryptoAccount extends Document, ICryptoAccountBase {
 }
 
 const CryptoAccountSchema = new mongoose.Schema<ICryptoAccount>({
+  __v: { type: Number, select: false },
   currency: {
     type: String,
     required: true

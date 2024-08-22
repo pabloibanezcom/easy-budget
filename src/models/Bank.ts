@@ -20,6 +20,7 @@ export interface IBankDocument extends IBank, IBankMethods {}
 interface IBankModel extends IBankStatics, Model<IBankDocument> {}
 
 const BankSchema = new mongoose.Schema<IBank>({
+  __v: { type: Number, select: false },
   name: {
     type: String,
     required: true

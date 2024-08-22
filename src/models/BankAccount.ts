@@ -18,6 +18,7 @@ export interface IBankAccount extends Document, IBankAccountBase {
 }
 
 const BankAccountSchema = new Schema<IBankAccount>({
+  __v: { type: Number, select: false },
   bank: {
     type: Schema.Types.ObjectId,
     ref: 'Bank',
