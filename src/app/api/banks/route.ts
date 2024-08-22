@@ -1,33 +1,25 @@
-import connectDB from '@/db';
+import { authRoute } from '@/app/api/base_routes';
+import { createdResponse, objectResponse } from '@/app/api/responses';
 import { Bank, IBankBase } from '@/models';
-import { NextResponse } from 'next/server';
+
+const itemName = 'Bank';
 
 export async function GET() {
-  try {
-    await connectDB();
-
-    const posts = await Bank.getAllBanks();
-
-    return NextResponse.json(posts);
-  } catch (error) {
-    return NextResponse.json({ error: 'An error occurred while fetching posts' }, { status: 500 });
-  }
+  return await authRoute(async () => {
+    const banks = await Bank.getAllBanks();
+    return objectResponse(banks);
+  });
 }
 
 export async function POST(request: Request) {
-  //  auth().protect();
-  const { name, country }: IBankBase = await request.json();
-  try {
-    await connectDB();
-
+  return await authRoute(async () => {
+    const { name, country }: IBankBase = await request.json();
     const bankData: IBankBase = {
       name,
       country
     };
 
     const bank = await Bank.create(bankData);
-    return NextResponse.json({ message: 'Bank created successfully', bank });
-  } catch (error) {
-    return NextResponse.json({ error: `An error occurred while creating the post ${error}` }, { status: 500 });
-  }
+    return createdResponse(itemName, bank);
+  });
 }

@@ -1,4 +1,5 @@
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.scss';
@@ -12,10 +13,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <ThemeRegistry>
-        <body className={inter.className}>{children}</body>
-      </ThemeRegistry>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <ThemeRegistry>
+          <body className={inter.className}>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            {children}
+          </body>
+        </ThemeRegistry>
+      </html>
+    </ClerkProvider>
   );
 }

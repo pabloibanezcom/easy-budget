@@ -39,7 +39,7 @@ BankSchema.statics.getAllBanks = async function () {
       _id: bank._id.toString()
     }));
   } catch (error) {
-    console.log('error when getting all posts', error);
+    console.log('error when getting all banks', error);
   }
 };
 
