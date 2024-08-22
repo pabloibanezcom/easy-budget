@@ -1,4 +1,4 @@
-import mongoose, { Document, model, models } from 'mongoose';
+import { Document, Model, model, models, Schema } from 'mongoose';
 
 export interface ICategoryBase {
   name: string;
@@ -10,7 +10,16 @@ export interface ICategory extends Document, ICategoryBase {
   updatedAt: Date;
 }
 
-const CategorySchema = new mongoose.Schema<ICategory>({
+interface ICategoryMethods {}
+
+interface ICategoryStatics {
+  getAllCategories(): Promise<ICategory[]>;
+}
+
+export interface ICategoryDocument extends ICategory, ICategoryMethods {}
+interface ICategoryModel extends ICategoryStatics, Model<ICategoryDocument> {}
+
+const CategorySchema = new Schema<ICategory>({
   name: {
     type: String,
     required: true
@@ -21,4 +30,18 @@ const CategorySchema = new mongoose.Schema<ICategory>({
   }
 });
 
-export const Category = models.Category || model<ICategory>('Category', CategorySchema);
+CategorySchema.statics.getAllCategories = async function () {
+  try {
+    const categories = await this.find().sort({ createdAt: -1 }).lean();
+
+    return categories.map((category: ICategoryDocument) => ({
+      ...category,
+      _id: category._id.toString()
+    }));
+  } catch (error) {
+    console.log('error when getting all categories', error);
+  }
+};
+
+export const Category =
+  (models.Category as ICategoryModel) || model<ICategoryDocument, ICategoryModel>('Category', CategorySchema);
