@@ -5,7 +5,9 @@ export interface ITagBase {
   color: string;
 }
 
-export interface ITag extends Document, ITagBase {
+export interface ITag extends ITagBase {}
+
+export interface ITagDoc extends Document, ITagBase {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,13 +15,13 @@ export interface ITag extends Document, ITagBase {
 interface ITagMethods {}
 
 interface ITagStatics {
-  getAllTags(): Promise<ITag[]>;
+  getAllTags(): Promise<ITagDoc[]>;
 }
 
-export interface ITagDocument extends ITag, ITagMethods {}
+export interface ITagDocument extends ITagDoc, ITagMethods {}
 interface ITagModel extends ITagStatics, Model<ITagDocument> {}
 
-const TagSchema = new Schema<ITag>({
+const TagSchema = new Schema<ITagDoc>({
   __v: { type: Number, select: false },
   name: {
     type: String,

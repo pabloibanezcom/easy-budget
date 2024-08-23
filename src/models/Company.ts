@@ -1,4 +1,4 @@
-import { ICategory } from '@/models';
+import { ICategoryDoc } from '@/models';
 import { Document, model, Model, models, Schema } from 'mongoose';
 
 export interface ICompanyBase {
@@ -6,7 +6,7 @@ export interface ICompanyBase {
   bankConceptName?: string;
 }
 export interface ICompany extends ICompanyBase {
-  defaultCategory?: ICategory;
+  defaultCategory?: ICategoryDoc;
 }
 
 export interface ICompanyRequestBody extends ICompanyBase {

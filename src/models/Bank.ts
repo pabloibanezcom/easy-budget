@@ -5,7 +5,9 @@ export interface IBankBase {
   country: string;
 }
 
-export interface IBank extends IBankBase, Document {
+export interface IBank extends IBankBase {}
+
+export interface IBankDoc extends IBankBase, Document {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,13 +15,13 @@ export interface IBank extends IBankBase, Document {
 interface IBankMethods {}
 
 interface IBankStatics {
-  getAllBanks(): Promise<IBank[]>;
+  getAllBanks(): Promise<IBankDoc[]>;
 }
 
-export interface IBankDocument extends IBank, IBankMethods {}
+export interface IBankDocument extends IBankDoc, IBankMethods {}
 interface IBankModel extends IBankStatics, Model<IBankDocument> {}
 
-const BankSchema = new mongoose.Schema<IBank>({
+const BankSchema = new mongoose.Schema<IBankDoc>({
   __v: { type: Number, select: false },
   name: {
     type: String,

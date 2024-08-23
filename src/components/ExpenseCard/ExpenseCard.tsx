@@ -1,10 +1,10 @@
-import { IExpense } from '@/models';
+import { IExpenseDoc } from '@/models';
 import classnames from 'classnames';
 import { Card } from '../Card';
 import styles from './expenseCard.module.scss';
 
 type ExpenseCardProps = {
-  expense: IExpense;
+  expense: IExpenseDoc;
   className?: string;
 };
 

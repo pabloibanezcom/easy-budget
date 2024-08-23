@@ -1,5 +1,5 @@
 import { Currency } from '@/enums';
-import { IBankAccount, ICategory, ICompanyDoc, ITag } from '@/models';
+import { IBankAccountDoc, ICategoryDoc, ICompanyDoc, ITagDoc } from '@/models';
 import { Document, PaginateModel, Schema, model, models } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
@@ -8,20 +8,20 @@ export interface IExpenseBase {
   description: string;
   issuer: ICompanyDoc;
   date: Date;
-  bankAccount: IBankAccount;
+  bankAccount: IBankAccountDoc;
   amount: number;
   currency: Currency;
-  category: ICategory;
-  tags?: ITag[];
+  category: ICategoryDoc;
+  tags?: ITagDoc[];
   comments?: string;
 }
 
-export interface IExpense extends IExpenseBase, Document {
+export interface IExpenseDoc extends IExpenseBase, Document {
   createdAt: Date;
   updatedAt: Date;
 }
 
-const ExpenseSchema = new Schema<IExpense>({
+const ExpenseSchema = new Schema<IExpenseDoc>({
   __v: { type: Number, select: false },
   description: {
     type: String,
@@ -68,4 +68,4 @@ const ExpenseSchema = new Schema<IExpense>({
 
 ExpenseSchema.plugin(mongoosePaginate);
 
-export const Expense = models.Expense || model<IExpense, PaginateModel<IExpense>>('Expense', ExpenseSchema);
+export const Expense = models.Expense || model<IExpenseDoc, PaginateModel<IExpenseDoc>>('Expense', ExpenseSchema);

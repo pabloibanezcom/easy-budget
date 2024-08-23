@@ -1,9 +1,9 @@
 import { Currency } from '@/enums';
-import { IBank } from '@/models';
+import { IBankDoc } from '@/models';
 import { Document, Schema, model, models } from 'mongoose';
 
 export interface IBankAccountBase {
-  bank: IBank;
+  bank: IBankDoc;
   iban?: string;
   sortCode?: string;
   accountNumber?: string;
@@ -12,12 +12,12 @@ export interface IBankAccountBase {
   balance: number;
 }
 
-export interface IBankAccount extends Document, IBankAccountBase {
+export interface IBankAccountDoc extends Document, IBankAccountBase {
   createdAt: Date;
   updatedAt: Date;
 }
 
-const BankAccountSchema = new Schema<IBankAccount>({
+const BankAccountSchema = new Schema<IBankAccountDoc>({
   __v: { type: Number, select: false },
   bank: {
     type: Schema.Types.ObjectId,
@@ -48,4 +48,4 @@ const BankAccountSchema = new Schema<IBankAccount>({
   }
 });
 
-export const BankAccount = models.Category || model<IBankAccount>('BankAccount', BankAccountSchema);
+export const BankAccount = models.Category || model<IBankAccountDoc>('BankAccount', BankAccountSchema);

@@ -5,7 +5,9 @@ export interface ICategoryBase {
   color: string;
 }
 
-export interface ICategory extends Document, ICategoryBase {
+export interface ICategory extends ICategoryBase {}
+
+export interface ICategoryDoc extends Document, ICategoryBase {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,13 +15,13 @@ export interface ICategory extends Document, ICategoryBase {
 interface ICategoryMethods {}
 
 interface ICategoryStatics {
-  getAllCategories(): Promise<ICategory[]>;
+  getAllCategories(): Promise<ICategoryDoc[]>;
 }
 
-export interface ICategoryDocument extends ICategory, ICategoryMethods {}
+export interface ICategoryDocument extends ICategoryDoc, ICategoryMethods {}
 interface ICategoryModel extends ICategoryStatics, Model<ICategoryDocument> {}
 
-const CategorySchema = new Schema<ICategory>({
+const CategorySchema = new Schema<ICategoryDoc>({
   __v: { type: Number, select: false },
   name: {
     type: String,

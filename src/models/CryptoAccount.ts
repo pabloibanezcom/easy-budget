@@ -5,12 +5,12 @@ export interface ICryptoAccountBase {
   balance: number;
 }
 
-export interface ICryptoAccount extends Document, ICryptoAccountBase {
+export interface ICryptoAccountDoc extends Document, ICryptoAccountBase {
   createdAt: Date;
   updatedAt: Date;
 }
 
-const CryptoAccountSchema = new mongoose.Schema<ICryptoAccount>({
+const CryptoAccountSchema = new mongoose.Schema<ICryptoAccountDoc>({
   __v: { type: Number, select: false },
   currency: {
     type: String,
@@ -22,4 +22,4 @@ const CryptoAccountSchema = new mongoose.Schema<ICryptoAccount>({
   }
 });
 
-export const CryptoAccount = models.CryptoAccount || model<ICryptoAccount>('CryptoAccount', CryptoAccountSchema);
+export const CryptoAccount = models.CryptoAccount || model<ICryptoAccountDoc>('CryptoAccount', CryptoAccountSchema);
