@@ -8,6 +8,10 @@ export const internalServerErrorResponse = () => {
   return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
 };
 
+export const badRequestResponse = (message: string) => {
+  return NextResponse.json({ error: message || 'Bad request' }, { status: 400 });
+};
+
 export const notFoundResponse = (itemName: string) => {
   return NextResponse.json({ error: itemName ? `${itemName} not found` : 'Not found' }, { status: 404 });
 };

@@ -7,7 +7,7 @@ export interface ITagBase {
 
 export interface ITag extends ITagBase {}
 
-export interface ITagDoc extends Document, ITagBase {
+export interface ITagDoc extends Document, ITag {
   createdAt: Date;
   updatedAt: Date;
 }

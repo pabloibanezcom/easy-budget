@@ -7,7 +7,7 @@ export interface ICategoryBase {
 
 export interface ICategory extends ICategoryBase {}
 
-export interface ICategoryDoc extends Document, ICategoryBase {
+export interface ICategoryDoc extends Document, ICategory {
   createdAt: Date;
   updatedAt: Date;
 }

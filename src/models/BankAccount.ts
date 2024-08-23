@@ -1,9 +1,8 @@
 import { Currency } from '@/enums';
 import { IBankDoc } from '@/models';
-import { Document, Schema, model, models } from 'mongoose';
+import { Document, Model, model, models, Schema } from 'mongoose';
 
 export interface IBankAccountBase {
-  bank: IBankDoc;
   iban?: string;
   sortCode?: string;
   accountNumber?: string;
@@ -12,10 +11,27 @@ export interface IBankAccountBase {
   balance: number;
 }
 
-export interface IBankAccountDoc extends Document, IBankAccountBase {
+export interface IBankAccount extends IBankAccountBase {
+  bank: IBankDoc;
+}
+
+export interface IBankAccountRequestBody extends IBankAccountBase {
+  bank: string;
+}
+
+export interface IBankAccountDoc extends Document, IBankAccount {
   createdAt: Date;
   updatedAt: Date;
 }
+
+interface IBankAccountMethods {}
+
+interface IBankAccountStatics {
+  getAllBankAccounts(): Promise<IBankAccountDoc[]>;
+}
+
+export interface IBankAccountDocument extends IBankAccountDoc, IBankAccountMethods {}
+interface IBankAccountModel extends IBankAccountStatics, Model<IBankAccountDocument> {}
 
 const BankAccountSchema = new Schema<IBankAccountDoc>({
   __v: { type: Number, select: false },
@@ -48,4 +64,25 @@ const BankAccountSchema = new Schema<IBankAccountDoc>({
   }
 });
 
-export const BankAccount = models.Category || model<IBankAccountDoc>('BankAccount', BankAccountSchema);
+BankAccountSchema.statics.getAllBankAccounts = async function () {
+  try {
+    const bankAccounts = await this.find().sort({ createdAt: -1 }).populate('bank').lean();
+
+    return bankAccounts.map((bankAccount: IBankAccountDocument) => ({
+      ...bankAccount,
+      _id: bankAccount._id.toString(),
+      bank: bankAccount.bank
+        ? {
+            ...bankAccount.bank,
+            _id: bankAccount.bank._id.toString()
+          }
+        : null
+    }));
+  } catch (error) {
+    console.log('error when getting all bank accounts', error);
+  }
+};
+
+export const BankAccount =
+  (models.BankAccount as IBankAccountModel) ||
+  model<IBankAccountDocument, IBankAccountModel>('BankAccount', BankAccountSchema);

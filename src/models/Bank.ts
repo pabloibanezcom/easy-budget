@@ -7,7 +7,7 @@ export interface IBankBase {
 
 export interface IBank extends IBankBase {}
 
-export interface IBankDoc extends IBankBase, Document {
+export interface IBankDoc extends IBank, Document {
   createdAt: Date;
   updatedAt: Date;
 }

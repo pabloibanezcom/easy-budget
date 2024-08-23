@@ -5,7 +5,9 @@ export interface ICryptoAccountBase {
   balance: number;
 }
 
-export interface ICryptoAccountDoc extends Document, ICryptoAccountBase {
+export interface ICryptoAccount extends ICryptoAccountBase {}
+
+export interface ICryptoAccountDoc extends Document, ICryptoAccount {
   createdAt: Date;
   updatedAt: Date;
 }
