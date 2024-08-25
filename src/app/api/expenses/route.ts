@@ -5,14 +5,14 @@ import { Expense, IExpenseRequestBody } from '@/models';
 
 const itemName = 'Expense';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   return await authRoute(async () => {
     const expenses = await Expense.getAllExpenses();
     return objectResponse(expenses);
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<any> {
   return await authRoute(async () => {
     const expenseData: IExpenseRequestBody = await request.json();
     const badRequestResponse = await checkExpense(expenseData);

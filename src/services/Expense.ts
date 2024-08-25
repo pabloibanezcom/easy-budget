@@ -1,7 +1,7 @@
-import { BankAccount as BankAccountDB, Company, Expense, IExpenseBase } from '@/models';
+import { BankAccount as BankAccountDB, Company, Expense, ICategory, IExpense } from '@/models';
 import { parseXLSX } from './xlsx/xlsxParse';
 
-const transformElementIntoExpense = async (bankAccount: any, element: any): Promise<IExpenseBase> => {
+const transformElementIntoExpense = async (bankAccount: any, element: any): Promise<IExpense> => {
   let company = await Company.findOne({ bankConceptName: element.concepto || element.description });
   if (!company) {
     company = await Company.findOne({ name: 'Desconocido' });
@@ -13,7 +13,7 @@ const transformElementIntoExpense = async (bankAccount: any, element: any): Prom
     bankAccount: bankAccount._id,
     amount: element.amount,
     currency: element.currency,
-    category: company?._doc?.defaultCategory,
+    category: company?.defaultCategory as ICategory,
     tags: [],
     comments: element.comments
   };

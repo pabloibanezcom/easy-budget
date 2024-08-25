@@ -4,14 +4,14 @@ import { ITagBase, Tag } from '@/models';
 
 const itemName = 'Tag';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   return await authRoute(async () => {
     const tags = await Tag.getAllTags();
     return objectResponse(tags);
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<any> {
   return await authRoute(async () => {
     const { name, color }: ITagBase = await request.json();
     const tagData: ITagBase = {

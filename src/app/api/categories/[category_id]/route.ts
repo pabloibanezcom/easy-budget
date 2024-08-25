@@ -10,7 +10,7 @@ interface IRequestParams {
   };
 }
 
-export async function GET(request: Request, { params }: IRequestParams) {
+export async function GET(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     try {
       const category = await Category.findById(params.category_id);
@@ -21,7 +21,7 @@ export async function GET(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function PUT(request: Request, { params }: IRequestParams) {
+export async function PUT(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     const categoryData = await request.json();
 
@@ -37,7 +37,7 @@ export async function PUT(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function DELETE(request: Request, { params }: IRequestParams) {
+export async function DELETE(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     let category;
 

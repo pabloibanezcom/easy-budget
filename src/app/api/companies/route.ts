@@ -4,14 +4,14 @@ import { Category, Company, ICompanyRequestBody } from '@/models';
 
 const itemName = 'Company';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   return await authRoute(async () => {
     const companies = await Company.getAllCompanies();
     return objectResponse(companies);
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<any> {
   return await authRoute(async () => {
     const { name, bankConceptName, defaultCategory }: ICompanyRequestBody = await request.json();
     const companyData: ICompanyRequestBody = {

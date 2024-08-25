@@ -4,14 +4,14 @@ import { Bank, IBankBase } from '@/models';
 
 const itemName = 'Bank';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   return await authRoute(async () => {
     const banks = await Bank.getAllBanks();
     return objectResponse(banks);
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<any> {
   return await authRoute(async () => {
     const { name, country }: IBankBase = await request.json();
     const bankData: IBankBase = {

@@ -12,11 +12,11 @@ export const badRequestResponse = (message: string) => {
   return NextResponse.json({ error: message || 'Bad request' }, { status: 400 });
 };
 
-export const notFoundResponse = (itemName: string) => {
+export const notFoundResponse = (itemName: string): NextResponse => {
   return NextResponse.json({ error: itemName ? `${itemName} not found` : 'Not found' }, { status: 404 });
 };
 
-export const objectResponse = (object: any) => {
+export const objectResponse = (object: any): NextResponse => {
   return NextResponse.json(object, { status: 200 });
 };
 

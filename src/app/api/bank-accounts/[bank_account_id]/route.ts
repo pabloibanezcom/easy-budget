@@ -10,7 +10,7 @@ interface IRequestParams {
   };
 }
 
-export async function GET(request: Request, { params }: IRequestParams) {
+export async function GET(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     const bankAccount = await BankAccount.findById(params.bank_account_id);
 
@@ -22,7 +22,7 @@ export async function GET(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function PUT(request: Request, { params }: IRequestParams) {
+export async function PUT(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     const bankAccountData = await request.json();
 
@@ -38,7 +38,7 @@ export async function PUT(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function DELETE(request: Request, { params }: IRequestParams) {
+export async function DELETE(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     let bankAccount;
 

@@ -4,14 +4,14 @@ import { Bank, BankAccount, IBankAccountRequestBody } from '@/models';
 
 const itemName = 'Bank Account';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   return await authRoute(async () => {
     const bankAccounts = await BankAccount.getAllBankAccounts();
     return objectResponse(bankAccounts);
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<any> {
   return await authRoute(async () => {
     const { iban, sortCode, accountNumber, alias, currency, balance, bank }: IBankAccountRequestBody =
       await request.json();

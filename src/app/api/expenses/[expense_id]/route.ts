@@ -11,7 +11,7 @@ interface IRequestParams {
   };
 }
 
-export async function GET(request: Request, { params }: IRequestParams) {
+export async function GET(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     const expense = await Expense.findById(params.expense_id).populate(expensePopulateFields);
 
@@ -23,7 +23,7 @@ export async function GET(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function PUT(request: Request, { params }: IRequestParams) {
+export async function PUT(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     const expenseData: IExpenseRequestBody = await request.json();
     const badRequestResponse = await checkExpense(expenseData);
@@ -46,7 +46,7 @@ export async function PUT(request: Request, { params }: IRequestParams) {
   });
 }
 
-export async function DELETE(request: Request, { params }: IRequestParams) {
+export async function DELETE(request: Request, { params }: IRequestParams): Promise<any> {
   return await authRoute(async () => {
     let expense;
 
