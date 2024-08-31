@@ -1,5 +1,5 @@
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.scss';
@@ -18,12 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeRegistry>
           <body className={inter.className}>
             <SignedOut>
-              <SignInButton />
+              <RedirectToSignIn />
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            {children}
+            <SignedIn>{children}</SignedIn>
           </body>
         </ThemeRegistry>
       </html>

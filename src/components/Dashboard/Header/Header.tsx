@@ -1,4 +1,5 @@
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { UserButton } from '@clerk/nextjs';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import Notifications from '@mui/icons-material/Notifications';
 import IconButton from '@mui/material/IconButton';
@@ -25,6 +26,7 @@ export const Header = ({ onToggleTheme }: HeaderProps) => {
             <ContrastIcon />
           </IconButton>
         </Tooltip>
+        <UserButton />
       </div>
     </header>
   );
