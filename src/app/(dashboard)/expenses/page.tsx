@@ -1,5 +1,6 @@
+import { getExpenses } from '@/actions';
+import { ExpensesList } from '@/components';
 import { PageTopBar, PageTopBarProps } from '@/components/PageTopBar/PageTopBar';
-import { Pagination } from '@/components/Pagination';
 
 const pageInfo: PageTopBarProps = {
   title: 'My expenses',
@@ -7,12 +8,12 @@ const pageInfo: PageTopBarProps = {
 };
 
 export default async function Expenses() {
+  const expenses = await getExpenses();
   return (
     <div>
       <PageTopBar title={pageInfo.title} subtitle={pageInfo.subtitle} />
       <div>
-        Expenses
-        <Pagination />
+        <ExpensesList expenses={expenses} />
       </div>
     </div>
   );

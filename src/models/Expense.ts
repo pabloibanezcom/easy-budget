@@ -1,5 +1,5 @@
 import { Currency } from '@/enums';
-import { IBankAccount, ICategory, ICompany, ITag } from '@/models';
+import { IBankAccountDoc, ICategoryDoc, ICompanyDoc, ITagDoc } from '@/models';
 import { Document, Model, model, models, PaginateModel, Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
@@ -12,10 +12,10 @@ export interface IExpenseBase {
 }
 
 export interface IExpense extends IExpenseBase {
-  issuer: ICompany;
-  bankAccount: IBankAccount;
-  category: ICategory;
-  tags: ITag[];
+  issuer: ICompanyDoc;
+  bankAccount: IBankAccountDoc;
+  category: ICategoryDoc;
+  tags: ITagDoc[];
 }
 
 export interface IExpenseRequestBody extends IExpenseBase {
@@ -39,7 +39,7 @@ interface IExpenseStatics {
 export interface IExpenseDocument extends IExpenseDoc, IExpenseMethods {}
 interface IExpenseModel extends IExpenseStatics, Model<IExpenseDocument> {}
 
-const ExpenseSchema = new Schema<IExpenseDoc>({
+const ExpenseSchema = new Schema<IExpenseDocument>({
   __v: { type: Number, select: false },
   description: {
     type: String,
@@ -110,12 +110,7 @@ export const expensePopulateFields = [
 
 ExpenseSchema.statics.getAllExpenses = async function () {
   try {
-    const expenses = await this.find().sort({ createdAt: -1 }).populate(expensePopulateFields).lean();
-
-    return expenses.map((expense: IExpenseDocument) => ({
-      ...expense,
-      _id: expense._id.toString()
-    }));
+    return await this.find().sort({ createdAt: -1 }).populate(expensePopulateFields).lean();
   } catch (error) {
     console.log('error when getting all expenses', error);
   }

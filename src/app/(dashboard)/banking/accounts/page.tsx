@@ -1,3 +1,4 @@
+import { BankAccountsList } from '@/components';
 import { PageTopBar, PageTopBarProps } from '@/components/PageTopBar/PageTopBar';
 
 const pageInfo: PageTopBarProps = {
@@ -9,6 +10,7 @@ export default async function Accounts() {
   return (
     <div>
       <PageTopBar title={pageInfo.title} subtitle={pageInfo.subtitle} />
+      <BankAccountsList />
     </div>
   );
 }

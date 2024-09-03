@@ -33,7 +33,7 @@ interface IBankAccountStatics {
 export interface IBankAccountDocument extends IBankAccountDoc, IBankAccountMethods {}
 interface IBankAccountModel extends IBankAccountStatics, Model<IBankAccountDocument> {}
 
-const BankAccountSchema = new Schema<IBankAccountDoc>({
+const BankAccountSchema = new Schema<IBankAccountDocument>({
   __v: { type: Number, select: false },
   bank: {
     type: Schema.Types.ObjectId,
@@ -66,18 +66,7 @@ const BankAccountSchema = new Schema<IBankAccountDoc>({
 
 BankAccountSchema.statics.getAllBankAccounts = async function () {
   try {
-    const bankAccounts = await this.find().sort({ createdAt: -1 }).populate('bank').lean();
-
-    return bankAccounts.map((bankAccount: IBankAccountDocument) => ({
-      ...bankAccount,
-      _id: bankAccount._id.toString(),
-      bank: bankAccount.bank
-        ? {
-            ...bankAccount.bank,
-            _id: bankAccount.bank._id.toString()
-          }
-        : null
-    }));
+    return await this.find().sort({ createdAt: -1 }).populate('bank').lean();
   } catch (error) {
     console.log('error when getting all bank accounts', error);
   }

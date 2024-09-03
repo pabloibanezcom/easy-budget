@@ -21,7 +21,7 @@ interface ITagStatics {
 export interface ITagDocument extends ITagDoc, ITagMethods {}
 interface ITagModel extends ITagStatics, Model<ITagDocument> {}
 
-const TagSchema = new Schema<ITagDoc>({
+const TagSchema = new Schema<ITagDocument>({
   __v: { type: Number, select: false },
   name: {
     type: String,
@@ -35,12 +35,7 @@ const TagSchema = new Schema<ITagDoc>({
 
 TagSchema.statics.getAllTags = async function () {
   try {
-    const tags = await this.find().sort({ createdAt: -1 }).lean();
-
-    return tags.map((tag: ITagDocument) => ({
-      ...tag,
-      _id: tag._id.toString()
-    }));
+    return await this.find().sort({ createdAt: -1 }).lean();
   } catch (error) {
     console.log('error when getting all tags', error);
   }

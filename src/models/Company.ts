@@ -1,4 +1,4 @@
-import { ICategoryDoc } from '@/models';
+import { ICategory } from '@/models';
 import { Document, model, Model, models, Schema } from 'mongoose';
 
 export interface ICompanyBase {
@@ -6,7 +6,7 @@ export interface ICompanyBase {
   bankConceptName?: string;
 }
 export interface ICompany extends ICompanyBase {
-  defaultCategory?: ICategoryDoc;
+  defaultCategory?: ICategory;
 }
 
 export interface ICompanyRequestBody extends ICompanyBase {
@@ -27,7 +27,7 @@ interface ICompanyStatics {
 export interface ICompanyDocument extends ICompanyDoc, ICompanyMethods {}
 interface ICompanyModel extends ICompanyStatics, Model<ICompanyDocument> {}
 
-const CompanySchema = new Schema<ICompanyDoc>({
+const CompanySchema = new Schema<ICompanyDocument>({
   __v: { type: Number, select: false },
   name: {
     type: String,
@@ -44,18 +44,7 @@ const CompanySchema = new Schema<ICompanyDoc>({
 
 CompanySchema.statics.getAllCompanies = async function () {
   try {
-    const companies = await this.find().sort({ createdAt: -1 }).populate('defaultCategory').lean();
-
-    return companies.map((company: ICompanyDocument) => ({
-      ...company,
-      _id: company._id.toString(),
-      defaultCategory: company.defaultCategory
-        ? {
-            ...company.defaultCategory,
-            _id: company.defaultCategory._id.toString()
-          }
-        : null
-    }));
+    return await this.find().sort({ createdAt: -1 }).populate('defaultCategory').lean();
   } catch (error) {
     console.log('error when getting all companies', error);
   }

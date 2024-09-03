@@ -15,13 +15,13 @@ export interface ICategoryDoc extends Document, ICategory {
 interface ICategoryMethods {}
 
 interface ICategoryStatics {
-  getAllCategories(): Promise<ICategoryDoc[]>;
+  getAllCategories(): Promise<ICategoryDocument[]>;
 }
 
 export interface ICategoryDocument extends ICategoryDoc, ICategoryMethods {}
 interface ICategoryModel extends ICategoryStatics, Model<ICategoryDocument> {}
 
-const CategorySchema = new Schema<ICategoryDoc>({
+const CategorySchema = new Schema<ICategoryDocument>({
   __v: { type: Number, select: false },
   name: {
     type: String,
@@ -30,17 +30,20 @@ const CategorySchema = new Schema<ICategoryDoc>({
   color: {
     type: String,
     required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true
+  },
+  updatedAt: {
+    type: Date,
+    required: true
   }
 });
 
 CategorySchema.statics.getAllCategories = async function () {
   try {
-    const categories = await this.find().sort({ createdAt: -1 }).lean();
-
-    return categories.map((category: ICategoryDocument) => ({
-      ...category,
-      _id: category._id.toString()
-    }));
+    return await this.find().sort({ name: 1 });
   } catch (error) {
     console.log('error when getting all categories', error);
   }

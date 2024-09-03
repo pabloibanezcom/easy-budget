@@ -21,7 +21,7 @@ interface IBankStatics {
 export interface IBankDocument extends IBankDoc, IBankMethods {}
 interface IBankModel extends IBankStatics, Model<IBankDocument> {}
 
-const BankSchema = new mongoose.Schema<IBankDoc>({
+const BankSchema = new mongoose.Schema<IBankDocument>({
   __v: { type: Number, select: false },
   name: {
     type: String,
@@ -35,12 +35,7 @@ const BankSchema = new mongoose.Schema<IBankDoc>({
 
 BankSchema.statics.getAllBanks = async function () {
   try {
-    const banks = await this.find().sort({ createdAt: -1 }).lean();
-
-    return banks.map((bank: IBankDocument) => ({
-      ...bank,
-      _id: bank._id.toString()
-    }));
+    return await this.find().sort({ createdAt: -1 }).lean();
   } catch (error) {
     console.log('error when getting all banks', error);
   }
